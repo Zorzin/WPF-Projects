@@ -1,0 +1,14 @@
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\bin\Debug\stosik.exe.config
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\bin\Debug\stosik.exe
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\bin\Debug\stosik.pdb
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\stosik.csprojResolveAssemblyReference.cache
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\MainWindow.g.cs
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\App.g.cs
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\stosik_MarkupCompile.cache
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\stosik_MarkupCompile.lref
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\MainWindow.baml
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\stosik.g.resources
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\stosik.Properties.Resources.resources
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\stosik.csproj.GenerateResource.Cache
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\stosik.exe
+c:\users\zorzi\documents\visual studio 2015\Projects\stosik\stosik\obj\Debug\stosik.pdb

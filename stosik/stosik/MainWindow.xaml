@@ -1,0 +1,46 @@
+﻿<Window x:Class="stosik.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:stosik"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="393.438" Width="620.62">
+    <Grid>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+       <Button
+           Padding="10"
+           FontSize="40"
+           Grid.Column="1"
+           Grid.Row="1"
+           x:Name="PopButton"
+           Content="Pop"
+           Click="PopButton_Click"/>
+        <Button
+            Padding="10"
+            FontSize="40"
+            Grid.Column="1"
+            x:Name="PushButton"
+            Content="Push"
+            Click="PushButton_Click"/>
+        <TextBox
+            Grid.Column="0"
+            Grid.Row="0"
+            Name="PushTextBox"
+            Margin="50"
+            />
+        <Label
+            Grid.Column="0"
+            Grid.Row="1"
+            Name="StatusLabel"
+            Margin="50"
+            />
+    </Grid>
+</Window>
