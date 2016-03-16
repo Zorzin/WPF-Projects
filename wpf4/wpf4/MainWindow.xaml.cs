@@ -49,9 +49,10 @@ namespace wpf4
         {
             r.Height = r.Height + 1;
         }
-
+        //komentarz testowy
         private void LewyLeft()
         {
+            //zrobmy zmiane
             r.Width = r.Width + 1;
             Canvas.SetLeft(r, Canvas.GetLeft(r) - 1);
         }
