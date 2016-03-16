@@ -1,0 +1,12 @@
+WPF PROJECTS
+----------------------
+My WPF projects for University lessons. 
+Feel free to use it.
+---------------------------------
+Wszystkie programy w WPF.
+Stosik- program realizujacy stos.
+WPF2- program który ma jedynie wygladać, wszystko utrzymuje swoje pozycje.
+WPF3- program który zmienia konkretne wartosci pola tekstowego i tekstu w nim wpisanego w czasie rzeczywistym za pomoca roznych kontrolek
+WPF4- program ktory ma za zadanie rysowac prostokaty. Ponadto strzalkami mozna poruszac ostatni prostokat, strzalkami z nacisnietym shiftem zmieniamy jego rozmiary, ctrl+shift+strzalki obsluguja inne krawedzie niz sam shift+strzalki
+
+Co tydzien nowe zadanko
