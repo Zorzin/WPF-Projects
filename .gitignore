@@ -19,6 +19,7 @@ $RECYCLE.BIN/
 _ReSharper.*
 bin
 obj
+.vs
 packages
 \bin
 \obj
