@@ -22,11 +22,13 @@ namespace wpf5
     {
         private bool e;
         private ListBoxItem item;
+        private MainWindow main;
 
         public UserDlg()
         {
             InitializeComponent();
             e = false;
+            main = (MainWindow)Application.Current.MainWindow;
         }
         public UserDlg(ListBoxItem item)
         {
@@ -40,13 +42,11 @@ namespace wpf5
             if (!this.e)
             {
                 Osoba osoba = new Osoba(ImieTextBox.Text, NazwiskoTextBox.Text, EmailTextBox.Text);
-
-                MainWindow main = (MainWindow) Application.Current.MainWindow;
                 main.lista.Add(osoba);
                 ListBoxItem newitem = new ListBoxItem();
                 newitem.Content = ImieTextBox.Text + Environment.NewLine + NazwiskoTextBox.Text + Environment.NewLine +
                                EmailTextBox.Text;
-                newitem.Tag = main.i;
+                newitem.Tag = main.i++;
                 main.ListBox.Items.Add(newitem);
                 Close();
             }
@@ -54,7 +54,6 @@ namespace wpf5
             {
                 item.Content = ImieTextBox.Text + Environment.NewLine + NazwiskoTextBox.Text + Environment.NewLine +
                                EmailTextBox.Text;
-                MainWindow main = (MainWindow)Application.Current.MainWindow;
                 main.lista[Int32.Parse(item.Tag.ToString())].imie = ImieTextBox.Text;
                 main.lista[Int32.Parse(item.Tag.ToString())].nazwisko = NazwiskoTextBox.Text;
                 main.lista[Int32.Parse(item.Tag.ToString())].email = EmailTextBox.Text;
@@ -65,6 +64,17 @@ namespace wpf5
         private void AnulujButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void UserDlg_OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            if (this.e)
+            {
+                main = (MainWindow)Application.Current.MainWindow;
+                ImieTextBox.Text = main.lista[Int32.Parse(item.Tag.ToString())].imie;
+                NazwiskoTextBox.Text = main.lista[Int32.Parse(item.Tag.ToString())].nazwisko;
+                EmailTextBox.Text = main.lista[Int32.Parse(item.Tag.ToString())].email; //Int32.Parse(item.Tag.ToString())
+            }
         }
     }
 }
