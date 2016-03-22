@@ -76,8 +76,11 @@ namespace wpf5
             {
                 if (ListBox.SelectedIndex >= 0)
                 {
-                    see.Close();
-                    podgladopen = false;
+                    if (podgladopen)
+                    {
+                        see.Close();
+                        podgladopen = false;
+                    }
                     var item = (ListBoxItem) ListBox.Items.GetItemAt(ListBox.SelectedIndex);
                     var j = item.Tag;
                     lista.RemoveAt(Int32.Parse(item.Tag.ToString()));

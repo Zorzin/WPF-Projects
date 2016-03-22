@@ -1,2 +1,0 @@
-C:\Users\zorzi\documents\visual studio 2015\Projects\wpf3\wpf3\bin\Debug\wpf3.exe.config
-C:\Users\zorzi\Documents\Visual Studio 2015\Projects\GIT-WPF\wpf3\wpf3\bin\Debug\wpf3.exe.config
