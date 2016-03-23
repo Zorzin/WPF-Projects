@@ -47,55 +47,56 @@ namespace wpf5
     public partial class MainWindow : Window
     {
         public List<Osoba> lista;
-        public int i;
-        public bool podgladopen;
         public SeeUsr see;
+        private int tag;
+        private ListBoxItem podgladItem;
         public MainWindow()
         {
             InitializeComponent();
             lista = new List<Osoba>();
-            i = 0;
-            UsunButton.IsEnabled = false;
-            PodgladButton.IsEnabled = false;
-            EdytujButton.IsEnabled = false;
-            podgladopen = false;
+            see = new SeeUsr();
+            tag = 0;
+            Ukryjprzyciski();
         }
 
         private void DodajButton_Click(object sender, RoutedEventArgs e)
         {
             Osoba osoba = new Osoba();
             UserDlg dodajUserDlg = new UserDlg();
-            dodajUserDlg.ShowDialog();
+            dodajUserDlg.osoba = osoba;
+            if (dodajUserDlg.ShowDialog() == true)
+            {
+                osoba = dodajUserDlg.osoba;
+                ListBoxItem newitem = new ListBoxItem();
+                newitem.Tag =tag++;
+                newitem.Content = osoba.imie + Environment.NewLine + osoba.nazwisko + Environment.NewLine + osoba.email;
+                ListBox.Items.Add(newitem);
+                lista.Add(osoba);
+            }
             ListBox.Items.Refresh();
         }
 
         private void UsunButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult d = MessageBox.Show("Czy na pewno chcesz usunąć?","Usunąć?", MessageBoxButton.OKCancel);
-            if (d == MessageBoxResult.OK)
+            MessageBoxResult boxResult = MessageBox.Show("Czy na pewno chcesz usunąć?","Usunąć?", MessageBoxButton.OKCancel);
+            if (boxResult == MessageBoxResult.OK)
             {
                 if (ListBox.SelectedIndex >= 0)
                 {
-                    if (podgladopen)
-                    {
-                        see.Close();
-                        podgladopen = false;
-                    }
+                    see.Close();
                     var item = (ListBoxItem) ListBox.Items.GetItemAt(ListBox.SelectedIndex);
-                    var j = item.Tag;
-                    lista.RemoveAt(Int32.Parse(item.Tag.ToString()));
+                    var j = Int32.Parse(item.Tag.ToString());
+                    lista.RemoveAt(j);
                     foreach (ListBoxItem x in ListBox.Items)
                     {
-                        if (Int32.Parse(x.Tag.ToString()) > Int32.Parse(j.ToString()))
+                        if (Int32.Parse(x.Tag.ToString()) > j)
                         {
-                            x.Tag = Int32.Parse(x.Tag.ToString()) - 1;
+                            x.Tag=Int32.Parse(x.Tag.ToString())-1;
                         }
                     }
-                    i--;
+                    tag--;
                     ListBox.Items.RemoveAt(ListBox.SelectedIndex);
-                    UsunButton.IsEnabled = false;
-                    PodgladButton.IsEnabled = false;
-                    EdytujButton.IsEnabled = false;
+                    Ukryjprzyciski();
                 }
             }
         }
@@ -103,17 +104,26 @@ namespace wpf5
         private void EdytujButton_Click(object sender, RoutedEventArgs e)
         {
             var item = (ListBoxItem)ListBox.Items.GetItemAt(ListBox.SelectedIndex);
-            UserDlg dodajUserDlg = new UserDlg(item);
-            dodajUserDlg.ShowDialog();
+            int tag = Int32.Parse(item.Tag.ToString());
+            Osoba edit = lista[tag];
+            UserDlg dodajUserDlg = new UserDlg();
+            dodajUserDlg.osoba = edit;
+            if (dodajUserDlg.ShowDialog()==true)
+            {
+                edit = dodajUserDlg.osoba;
+                item.Content = edit.imie + Environment.NewLine + edit.nazwisko + Environment.NewLine + edit.email;
+            }
             ListBox.Items.Refresh();
         }
 
         private void PodgladButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = (ListBoxItem)ListBox.Items.GetItemAt(ListBox.SelectedIndex);
-            see = new SeeUsr(item);
+            see = new SeeUsr();
+            podgladItem = (ListBoxItem)ListBox.Items.GetItemAt(ListBox.SelectedIndex);
+            int tag = Int32.Parse(podgladItem.Tag.ToString());
+            Osoba podglad = lista[tag];
+            see.osoba = podglad;
             see.Show();
-            podgladopen = true;
         }
 
         private void ZamknijButton_Click(object sender, RoutedEventArgs e)
@@ -124,17 +134,37 @@ namespace wpf5
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UsunButton.IsEnabled = true;
-            PodgladButton.IsEnabled = true;
-            EdytujButton.IsEnabled = true;
-            if (podgladopen)
+            Pokazprzyciski();
+            if (see.IsLoaded)
             {
                 if (ListBox.SelectedIndex >= 0)
                 {
                     var item = (ListBoxItem) ListBox.Items.GetItemAt(ListBox.SelectedIndex);
-                    see.Update(item);
+                    podgladItem = item;
+                    int tag = Int32.Parse(item.Tag.ToString());
+                    see.osoba = lista[tag];
+                    see.Update();
                 }
             }
-    }
+        }
+
+        public void Update()
+        {
+            podgladItem.Content = see.osoba.imie + Environment.NewLine + see.osoba.nazwisko + Environment.NewLine + see.osoba.email;
+        }
+
+        private void Ukryjprzyciski()
+        {
+            UsunButton.IsEnabled = false;
+            PodgladButton.IsEnabled = false;
+            EdytujButton.IsEnabled = false;
+        }
+
+        private void Pokazprzyciski()
+        {
+            UsunButton.IsEnabled = true;
+            PodgladButton.IsEnabled = true;
+            EdytujButton.IsEnabled = true;
+        }
     }   
 }

@@ -20,58 +20,49 @@ namespace wpf5
     public partial class SeeUsr : Window
     {
         private MainWindow main;
-        private ListBoxItem item;
-        public SeeUsr(ListBoxItem item)
+        public Osoba osoba;
+        public SeeUsr()
         {
             InitializeComponent();
-            this.main = (MainWindow)Application.Current.MainWindow;
-            this.item = item;
+            main = (MainWindow)Application.Current.MainWindow;
         }
 
         private void ZamknijButton_Click(object sender, RoutedEventArgs e)
         {
-            main.podgladopen = false;
             Close();
         }
 
         private void SeeUsr_OnLoaded(object sender, RoutedEventArgs e)
         {
-            ImieTextBox.Text = main.lista[Int32.Parse(item.Tag.ToString())].imie;
-            NazwiskoTextBox.Text = main.lista[Int32.Parse(item.Tag.ToString())].nazwisko;
-            EmailTextBox.Text = main.lista[Int32.Parse(item.Tag.ToString())].email;
+            ImieTextBox.Text = osoba.imie;
+            NazwiskoTextBox.Text = osoba.nazwisko;
+            EmailTextBox.Text = osoba.email;
         }
 
-        public void Update(ListBoxItem item)
+        public void Update()
         {
-            this.item = item;
-            ImieTextBox.Text = main.lista[Int32.Parse(item.Tag.ToString())].imie;
-            NazwiskoTextBox.Text = main.lista[Int32.Parse(item.Tag.ToString())].nazwisko;
-            EmailTextBox.Text = main.lista[Int32.Parse(item.Tag.ToString())].email;
+            ImieTextBox.Text = osoba.imie;
+            NazwiskoTextBox.Text = osoba.nazwisko;
+            EmailTextBox.Text = osoba.email;
         }
 
         private void ImieTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            main.lista[Int32.Parse(item.Tag.ToString())].imie = ImieTextBox.Text;
-            UpdateContent(item);
+            osoba.imie = ImieTextBox.Text;
+            main.Update();
 
         }
 
         private void NazwiskoTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            main.lista[Int32.Parse(item.Tag.ToString())].nazwisko = NazwiskoTextBox.Text;
-            UpdateContent(item);
+            osoba.nazwisko = NazwiskoTextBox.Text;
+            main.Update();
         }
 
         private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            main.lista[Int32.Parse(item.Tag.ToString())].email = EmailTextBox.Text;
-            UpdateContent(item);
-        }
-
-        private void UpdateContent(ListBoxItem item)
-        {
-            item.Content= item.Content = ImieTextBox.Text + Environment.NewLine + NazwiskoTextBox.Text + Environment.NewLine +
-                               EmailTextBox.Text;
+            osoba.email = EmailTextBox.Text;
+            main.Update();
         }
     }
 }
