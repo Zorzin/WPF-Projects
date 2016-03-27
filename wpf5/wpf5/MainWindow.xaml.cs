@@ -46,13 +46,23 @@ namespace wpf5
 
     public partial class MainWindow : Window
     {
+<<<<<<< HEAD
         public List<Osoba> lista;
         public SeeUsr see;
         private ListBoxItem podgladItem; //potrzebne do aktualizowania tresci w liscie
+=======
+        private List<Osoba> lista;
+        private SeeUsr see;
+        private ListBoxItem podgladItem;
+>>>>>>> 989a701c12b616d048f993a66e3a31173bbe650e
         public MainWindow()
         {
             InitializeComponent();
             lista = new List<Osoba>();
+<<<<<<< HEAD
+=======
+            see = new SeeUsr();
+>>>>>>> 989a701c12b616d048f993a66e3a31173bbe650e
             Ukryjprzyciski();
         }
 
@@ -65,6 +75,10 @@ namespace wpf5
             {
                 osoba = dodajUserDlg.osoba;
                 ListBoxItem newitem = new ListBoxItem();
+<<<<<<< HEAD
+=======
+                newitem.Tag =lista.Count;
+>>>>>>> 989a701c12b616d048f993a66e3a31173bbe650e
                 newitem.Content = osoba.imie + Environment.NewLine + osoba.nazwisko + Environment.NewLine + osoba.email;
                 ListBox.Items.Add(newitem);
                 lista.Add(osoba);
@@ -75,8 +89,9 @@ namespace wpf5
         private void UsunButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult boxResult = MessageBox.Show("Czy na pewno chcesz usunąć?","Usunąć?", MessageBoxButton.OKCancel);
-            if (boxResult == MessageBoxResult.OK)
+            if (boxResult == MessageBoxResult.OK && ListBox.SelectedIndex >= 0)
             {
+<<<<<<< HEAD
                 if (ListBox.SelectedIndex >= 0)
                 {
                     see?.Close();
@@ -85,6 +100,16 @@ namespace wpf5
                     Ukryjprzyciski();
                 }
             }   
+=======
+                see.Close();
+                var item = (ListBoxItem) ListBox.Items.GetItemAt(ListBox.SelectedIndex);
+                var tagdel = Int32.Parse(item.Tag.ToString());
+                lista.RemoveAt(tagdel);
+                ZmniejszTag(tagdel);
+                ListBox.Items.RemoveAt(ListBox.SelectedIndex);
+                Ukryjprzyciski();
+            }
+>>>>>>> 989a701c12b616d048f993a66e3a31173bbe650e
         }
 
         private void EdytujButton_Click(object sender, RoutedEventArgs e)
@@ -151,6 +176,19 @@ namespace wpf5
             UsunButton.IsEnabled = true;
             PodgladButton.IsEnabled = true;
             EdytujButton.IsEnabled = true;
+        }
+
+        private void ZmniejszTag(int tagdel)
+        {
+            int tag;
+            foreach (ListBoxItem x in ListBox.Items)
+            {
+                tag = Int32.Parse(x.Tag.ToString());
+                if (tag > tagdel)
+                {
+                    x.Tag = tag - 1;
+                }
+            }
         }
     }   
 }
