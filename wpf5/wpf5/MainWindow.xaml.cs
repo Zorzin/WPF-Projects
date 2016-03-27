@@ -48,7 +48,7 @@ namespace wpf5
     {
         public List<Osoba> lista;
         public SeeUsr see;
-        private ListBoxItem podgladItem;
+        private ListBoxItem podgladItem; //potrzebne do aktualizowania tresci w liscie
         public MainWindow()
         {
             InitializeComponent();
