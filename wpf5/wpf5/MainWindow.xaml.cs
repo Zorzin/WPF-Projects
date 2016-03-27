@@ -46,16 +46,14 @@ namespace wpf5
 
     public partial class MainWindow : Window
     {
-        public List<Osoba> lista;
-        public SeeUsr see;
-        private int tag;
+        private List<Osoba> lista;
+        private SeeUsr see;
         private ListBoxItem podgladItem;
         public MainWindow()
         {
             InitializeComponent();
             lista = new List<Osoba>();
             see = new SeeUsr();
-            tag = 0;
             Ukryjprzyciski();
         }
 
@@ -68,7 +66,7 @@ namespace wpf5
             {
                 osoba = dodajUserDlg.osoba;
                 ListBoxItem newitem = new ListBoxItem();
-                newitem.Tag =tag++;
+                newitem.Tag =lista.Count;
                 newitem.Content = osoba.imie + Environment.NewLine + osoba.nazwisko + Environment.NewLine + osoba.email;
                 ListBox.Items.Add(newitem);
                 lista.Add(osoba);
@@ -79,25 +77,15 @@ namespace wpf5
         private void UsunButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult boxResult = MessageBox.Show("Czy na pewno chcesz usunąć?","Usunąć?", MessageBoxButton.OKCancel);
-            if (boxResult == MessageBoxResult.OK)
+            if (boxResult == MessageBoxResult.OK && ListBox.SelectedIndex >= 0)
             {
-                if (ListBox.SelectedIndex >= 0)
-                {
-                    see.Close();
-                    var item = (ListBoxItem) ListBox.Items.GetItemAt(ListBox.SelectedIndex);
-                    var j = Int32.Parse(item.Tag.ToString());
-                    lista.RemoveAt(j);
-                    foreach (ListBoxItem x in ListBox.Items)
-                    {
-                        if (Int32.Parse(x.Tag.ToString()) > j)
-                        {
-                            x.Tag=Int32.Parse(x.Tag.ToString())-1;
-                        }
-                    }
-                    tag--;
-                    ListBox.Items.RemoveAt(ListBox.SelectedIndex);
-                    Ukryjprzyciski();
-                }
+                see.Close();
+                var item = (ListBoxItem) ListBox.Items.GetItemAt(ListBox.SelectedIndex);
+                var tagdel = Int32.Parse(item.Tag.ToString());
+                lista.RemoveAt(tagdel);
+                ZmniejszTag(tagdel);
+                ListBox.Items.RemoveAt(ListBox.SelectedIndex);
+                Ukryjprzyciski();
             }
         }
 
@@ -165,6 +153,19 @@ namespace wpf5
             UsunButton.IsEnabled = true;
             PodgladButton.IsEnabled = true;
             EdytujButton.IsEnabled = true;
+        }
+
+        private void ZmniejszTag(int tagdel)
+        {
+            int tag;
+            foreach (ListBoxItem x in ListBox.Items)
+            {
+                tag = Int32.Parse(x.Tag.ToString());
+                if (tag > tagdel)
+                {
+                    x.Tag = tag - 1;
+                }
+            }
         }
     }   
 }
