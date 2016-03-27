@@ -48,14 +48,11 @@ namespace wpf5
     {
         public List<Osoba> lista;
         public SeeUsr see;
-        private int tag;
         private ListBoxItem podgladItem;
         public MainWindow()
         {
             InitializeComponent();
             lista = new List<Osoba>();
-            see = new SeeUsr();
-            tag = 0;
             Ukryjprzyciski();
         }
 
@@ -68,7 +65,6 @@ namespace wpf5
             {
                 osoba = dodajUserDlg.osoba;
                 ListBoxItem newitem = new ListBoxItem();
-                newitem.Tag =tag++;
                 newitem.Content = osoba.imie + Environment.NewLine + osoba.nazwisko + Environment.NewLine + osoba.email;
                 ListBox.Items.Add(newitem);
                 lista.Add(osoba);
@@ -83,29 +79,18 @@ namespace wpf5
             {
                 if (ListBox.SelectedIndex >= 0)
                 {
-                    see.Close();
-                    var item = (ListBoxItem) ListBox.Items.GetItemAt(ListBox.SelectedIndex);
-                    var j = Int32.Parse(item.Tag.ToString());
-                    lista.RemoveAt(j);
-                    foreach (ListBoxItem x in ListBox.Items)
-                    {
-                        if (Int32.Parse(x.Tag.ToString()) > j)
-                        {
-                            x.Tag=Int32.Parse(x.Tag.ToString())-1;
-                        }
-                    }
-                    tag--;
+                    see?.Close();
+                    lista.RemoveAt(ListBox.SelectedIndex);
                     ListBox.Items.RemoveAt(ListBox.SelectedIndex);
                     Ukryjprzyciski();
                 }
-            }
+            }   
         }
 
         private void EdytujButton_Click(object sender, RoutedEventArgs e)
         {
             var item = (ListBoxItem)ListBox.Items.GetItemAt(ListBox.SelectedIndex);
-            int tag = Int32.Parse(item.Tag.ToString());
-            Osoba edit = lista[tag];
+            Osoba edit = lista[ListBox.SelectedIndex];
             UserDlg dodajUserDlg = new UserDlg();
             dodajUserDlg.osoba = edit;
             if (dodajUserDlg.ShowDialog()==true)
@@ -120,30 +105,31 @@ namespace wpf5
         {
             see = new SeeUsr();
             podgladItem = (ListBoxItem)ListBox.Items.GetItemAt(ListBox.SelectedIndex);
-            int tag = Int32.Parse(podgladItem.Tag.ToString());
-            Osoba podglad = lista[tag];
+            Osoba podglad = lista[ListBox.SelectedIndex];
             see.osoba = podglad;
             see.Show();
         }
 
         private void ZamknijButton_Click(object sender, RoutedEventArgs e)
         {
-            see.Close();
+            see?.Close();
             Close();
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Pokazprzyciski();
-            if (see.IsLoaded)
+            if (see != null)
             {
-                if (ListBox.SelectedIndex >= 0)
+                if (see.IsLoaded)
                 {
-                    var item = (ListBoxItem) ListBox.Items.GetItemAt(ListBox.SelectedIndex);
-                    podgladItem = item;
-                    int tag = Int32.Parse(item.Tag.ToString());
-                    see.osoba = lista[tag];
-                    see.Update();
+                    if (ListBox.SelectedIndex >= 0)
+                    {
+                        var item = (ListBoxItem) ListBox.Items.GetItemAt(ListBox.SelectedIndex);
+                        podgladItem = item;
+                        see.osoba = lista[ListBox.SelectedIndex];
+                        see.Update();
+                    }
                 }
             }
         }
