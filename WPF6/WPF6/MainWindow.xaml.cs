@@ -43,102 +43,78 @@ namespace WPF6
     }
     public partial class MainWindow : Window
     {
-        private List<int> listaA = new List<int>();
-        private List<int> listaB = new List<int>();
-        private List<int> listaC = new List<int>();
-        private Dictionary<object, bool> isDirty = new Dictionary<object, bool>();
         public MainWindow()
         {
-            for (int i = 5; i > 0; i--)
-            {
-                listaA.Add(i);
-            }
             InitializeComponent();
-            
         }
 
         private void GoraCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            Button button = (Button)e.Source;
-            switch (button.Name)
+            ListBox listBox;
+            if (A != null)
             {
-                case "aUp":
-                    e.CanExecute = false;
-                    if (listaA.Count > 0 && TymczasowyTextBox.Text == "")
-                    {
-                        e.CanExecute = true;
-                    }
-                    break;
-                case "bUp":
-                    e.CanExecute = false;
-                    if (listaB.Count > 0 && TymczasowyTextBox.Text == "")
-                    {
-                        e.CanExecute = true;
-                    }
-                    break;
-                case "cUp":
-                    e.CanExecute = false;
-                    if (listaC.Count > 0 && TymczasowyTextBox.Text == "")
-                    {
-                        e.CanExecute = true;
-                    }
-                    break;
-                default:
-                    break;
+                Button button = (Button) e.Source;
+                switch (button.Name)
+                {
+                    case "aUp":
+                        listBox = A;
+                        break;
+                    case "bUp":
+                        listBox = B;
+                        break;
+                    case "cUp":
+                        listBox = C;
+                        break;
+                    default:
+                        return;
+                }
+                e.CanExecute = false;
+                if (listBox.Items.Count > 0 && TymczasowyTextBox.Text == "")
+                {
+                    e.CanExecute = true;
+                }
             }
         }
 
         private void DolCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            Button button = (Button)e.Source;
-            int gora;
-            bool tekst = Int32.TryParse(TymczasowyTextBox.Text,out gora);
-            switch (button.Name)
+            if (A != null)
             {
-                case "aDown":
-                    e.CanExecute = false;
-                    if (listaA.Count > 0)
-                    {
-                        if (tekst && gora < listaA[listaA.Count - 1])
-                        {
-                            e.CanExecute = true;
-                        }
-                    }
-                    else if (TymczasowyTextBox.Text != "")
-                    {
-                        e.CanExecute = true;
-                    }
-                    break;
-                case "bDown":
-                    e.CanExecute = false;
-                    if (listaB.Count > 0)
-                    {
-                        if (tekst && gora < listaB[listaB.Count - 1])
-                        {
-                            e.CanExecute = true;
-                        }
-                    }
-                    else if (TymczasowyTextBox.Text != "")
-                    {
-                        e.CanExecute = true;
-                    }
-                    break;
-                case "cDown":
-                    e.CanExecute = false;
-                    if (listaC.Count > 0)
-                    {
-                        if (tekst && gora < listaC[listaC.Count - 1])
-                        {
-                            e.CanExecute = true;
-                        }
-                    }
-                    else if(TymczasowyTextBox.Text!="")
+                var button = (Button) e.Source;
+                int gora;
+                ListBox listbox;
+                ListBoxItem item;
+                bool tekst = int.TryParse(TymczasowyTextBox.Text, out gora);
+
+                switch (button.Name)
+                {
+
+                    case "aDown":
+                        listbox = A;
+                        break;
+                    case "bDown":
+                        listbox = B;
+                        break;
+                    case "cDown":
+                        listbox = C;
+                        break;
+                    default:
+                        return;
+                }
+                e.CanExecute = false;
+                if (listbox.Items.Count > 0)
+                {
+                    item =  (ListBoxItem)listbox.Items[0];
+                    if (tekst && gora < Int32.Parse(item.Content.ToString()))
                     {
                         e.CanExecute = true;
                     }
-                    break;
-                default:
-                    break;
+                }
+                else if (TymczasowyTextBox.Text != "")
+                {
+                    e.CanExecute = true;
+                }
+
             }
         }
 
@@ -146,54 +122,48 @@ namespace WPF6
         {
             Button button = (Button)e.Source;
             ListBoxItem item = new ListBoxItem();
+            ListBox listBox;
             switch (button.Name)
             {
                 case "aDown":
-                    listaA.Add(Int32.Parse(TymczasowyTextBox.Text));
-                    item.Content = TymczasowyTextBox.Text;
-                    A.Items.Insert(0, item);
-                    TymczasowyTextBox.Text = "";
+                    listBox = A;
                     break;
                 case "bDown":
-                    listaB.Add(Int32.Parse(TymczasowyTextBox.Text));
-                    item.Content = TymczasowyTextBox.Text;
-                    B.Items.Insert(0,item);
-                    TymczasowyTextBox.Text = "";
+                    listBox = B;
                     break;
                 case "cDown":
-                    listaC.Add(Int32.Parse(TymczasowyTextBox.Text));
-                    item.Content = TymczasowyTextBox.Text;
-                    C.Items.Insert(0, item);
-                    TymczasowyTextBox.Text = "";
+                    listBox = C;
                     break;
                 default:
-                    break;
+                    return;
             }
+            item.Content = TymczasowyTextBox.Text;
+            listBox.Items.Insert(0, item);
+            TymczasowyTextBox.Text = "";
         }
 
         private void GoraExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             Button button = (Button) e.Source;
+            ListBoxItem item;
+            ListBox listBox;
             switch (button.Name)
             {
                 case "aUp":
-                    TymczasowyTextBox.Text = listaA[listaA.Count - 1].ToString();
-                    listaA.RemoveAt(listaA.Count-1);
-                    A.Items.RemoveAt(0);
+                    listBox = A;
                     break;
                 case "bUp":
-                    TymczasowyTextBox.Text = listaB[listaB.Count - 1].ToString();
-                    listaB.RemoveAt(listaB.Count - 1);
-                    B.Items.RemoveAt(0);
+                    listBox = B;
                     break;
                 case "cUp":
-                    TymczasowyTextBox.Text = listaC[listaC.Count - 1].ToString();
-                    listaC.RemoveAt(listaC.Count - 1);
-                    C.Items.RemoveAt(0);
+                    listBox = C;
                     break;
                 default:
-                    break;
+                    return;
             }
+            item = (ListBoxItem)listBox.Items[0];
+            TymczasowyTextBox.Text = item.Content.ToString();
+            listBox.Items.RemoveAt(0);
         }
 
         
