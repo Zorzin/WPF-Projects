@@ -10,4 +10,5 @@ WPF3- program który zmienia konkretne wartosci pola tekstowego i tekstu w nim w
 WPF4- program ktory ma za zadanie rysowac prostokaty. Ponadto strzalkami mozna poruszac ostatni prostokat, strzalkami z nacisnietym shiftem zmieniamy jego rozmiary, ctrl+shift+strzalki obsluguja inne krawedzie niz sam shift+strzalki
 WPF5- program który ma za zadanie dodawać użytkowników do listy ListBox i pozwala na edytowanie tej listy. 
 WPF6- program który ma za zadanie umożliwienie rozwiazania problemu wież Hanoi. Wszystko opiera sie o Commandy.
+WPF7- program który ma za zadanie dodawać, usuwać i edytkować ożytkowników z listy ListBox, wszystko działa na zasadzie bindowania danych.
 Co tydzien nowe zadanko
