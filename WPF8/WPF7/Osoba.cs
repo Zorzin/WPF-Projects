@@ -14,9 +14,9 @@ namespace WPF7
         private string imie;
         private string nazwisko;
         private string email;
-        private int wiek;
         private string zdjecie;
         private string plec;
+        public string Pesel { get; set; }
         public string Zdjecie
         {
             get { return zdjecie; }
@@ -83,8 +83,9 @@ namespace WPF7
             this.Dostep = 0;
             this.szczegoly = false;
             this.Plec = "";
-            this.wiek = 0;
+            this.Wiek = 0;
             this.Zdjecie = null;
+            this.Pesel = "";
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property)
@@ -131,6 +132,21 @@ namespace WPF7
                                     return "To nie jest poprawny formal adresu email";
                                 }
                         }
+                        break;
+                    case "Pesel":
+                        long pesel;
+                        if (long.TryParse(Pesel, out pesel))
+                        {
+                            if (Pesel.ToString().Length != 11)
+                            {
+                                return "pesel musi miec 11 znakow!";
+                            }
+                        }
+                        else
+                        {
+                            return "pesel musi miec 11 znakow!";
+                        }
+                        
                         break;
                     default:
                         break;

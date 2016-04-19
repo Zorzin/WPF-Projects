@@ -35,7 +35,8 @@ namespace WPF7
             }
             catch
             {
-                return null;
+                string defaultPath = System.IO.Path.Combine(ImageDir, "default.jpeg");
+                return new BitmapImage(new Uri(defaultPath)); ;
             }
         }
 

@@ -21,7 +21,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock FontWeight="Bold" Text="{Binding Path=wyswietl}"/>
-                    <Image Grid.Row="1" Margin="0,0,5,0" Grid.RowSpan="2" MaxHeight="64"
+                    <Image Grid.Row="1" Margin="0,0,5,0" Grid.ColumnSpan="2" MaxHeight="64"
                             Source="{Binding Path=Zdjecie,Mode=TwoWay, Converter={StaticResource ConverterZdjecia}}"/>
                 </Grid>
             </Border>
@@ -112,24 +112,30 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="6">Zdjęcie</Label>
                     <Label>Adres e-mail</Label>
-                    <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Zdjecie, Mode=TwoWay, Converter={StaticResource ConverterZdjecia}}"/>
                     <Label Grid.Row="1">Kwota wpłaty</Label>
                     <Label Grid.Row="2">Region</Label>
                     <Label Grid.Row="3">Poziom dostępu</Label>
                     <Label Grid.Row="4">Wiek</Label>
                     <Label Grid.Row="5">Płeć</Label>
-                    <StackPanel Grid.Row="5" Grid.Column="1">
-                    <RadioButton GroupName="RadioGroup" IsChecked="{Binding boolplecm, Mode=TwoWay}">Mężczyzna</RadioButton>
-                    <RadioButton GroupName="RadioGroup" IsChecked="{Binding boolpleck, Mode=TwoWay}">Kobieta</RadioButton>
-                    </StackPanel>
-                    <TextBox  Grid.Column="1" Grid.Row="4" Name="wiekText" Text="{Binding Wiek, Mode=TwoWay,ValidatesOnDataErrors=True}"></TextBox>
+                    <Label Grid.Row="6">PESEL</Label>
+                    <Label Grid.Row="7">Zdjęcie</Label>
+                    <Image Grid.Row="8" Margin="0,0,5,0" Grid.ColumnSpan="2" MaxHeight="64"
+                            Source="{Binding Path=Zdjecie,Mode=TwoWay, Converter={StaticResource ConverterZdjecia}}"/>
                     <TextBox  Grid.Column="1" Name="emailText" Text="{Binding Email, Mode=TwoWay,ValidatesOnDataErrors=True}"/>
                     <TextBox  Grid.Row="1" Grid.Column="1" Name="wplataText" Text="{Binding Kwota, Mode=TwoWay,ValidatesOnDataErrors=True, Converter={StaticResource ConverterCeny} }"/>
                     <ComboBox Grid.Row="2" Grid.Column="1" Name="ComboBox" SelectedValue="{Binding Region}"/>
                     <Slider Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="5" Name="Slider" Value="{Binding Dostep, Mode=TwoWay}"/>
+                    <TextBox  Grid.Column="1" Grid.Row="4" Name="wiekText" Text="{Binding Wiek, Mode=TwoWay,ValidatesOnDataErrors=True}"></TextBox>
+                    <StackPanel Grid.Row="5" Grid.Column="1">
+                        <RadioButton GroupName="RadioGroup" IsChecked="{Binding boolplecm, Mode=TwoWay}">Mężczyzna</RadioButton>
+                        <RadioButton GroupName="RadioGroup" IsChecked="{Binding boolpleck, Mode=TwoWay}">Kobieta</RadioButton>
+                    </StackPanel>
+                    <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Pesel, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                    <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Zdjecie, Mode=TwoWay}"/>
                 </Grid>
             </GroupBox>
             <Button IsEnabled="{Binding ElementName=ListBox, Path=HasItems}" Name="Button" Grid.Row="2" Click="UsunButton_Click">Usuń</Button>
