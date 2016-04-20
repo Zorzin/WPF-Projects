@@ -100,18 +100,25 @@ namespace WPF7
         {
             public int Compare(object x, object y)
             {
+                Osoba osoba1 = (Osoba)x;
+                Osoba osoba2 = (Osoba)y;
                 try
                 {
-                    Osoba osoba1 = (Osoba)x;
-                    Osoba osoba2 = (Osoba)y;
                     var letter1 = osoba1.Email.Substring(0, 1);
                     var letter2 = osoba2.Email.Substring(0, 1);
                     return letter1.CompareTo(letter2);
                 }
                 catch (Exception)
                 {
-
-                    return -1;
+                    if (string.IsNullOrEmpty(osoba1.Email))
+                    {
+                        return -1;
+                    }
+                    else if(string.IsNullOrEmpty(osoba2.Email))
+                    {
+                        return 1;
+                    }
+                    return 0;
                 }
                 
             }
@@ -124,16 +131,25 @@ namespace WPF7
         {
             public int Compare(object x, object y)
             {
+                Osoba osoba1 = (Osoba)x;
+                Osoba osoba2 = (Osoba)y;
                 try
                 {
-                    Osoba osoba1 = (Osoba)x;
-                    Osoba osoba2 = (Osoba)y;
+                    
                     return osoba1.Nazwisko.Length.CompareTo(osoba2.Nazwisko.Length);
                 }
                 catch (Exception)
                 {
 
-                    return -1;
+                    if (string.IsNullOrEmpty(osoba1.Nazwisko))
+                    {
+                        return -1;
+                    }
+                    else if (string.IsNullOrEmpty(osoba2.Nazwisko))
+                    {
+                        return 1;
+                    }
+                    return 0;
                 }
                 
             }
