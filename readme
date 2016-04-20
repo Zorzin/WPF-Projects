@@ -11,4 +11,5 @@ WPF4- program ktory ma za zadanie rysowac prostokaty. Ponadto strzalkami mozna p
 WPF5- program który ma za zadanie dodawać użytkowników do listy ListBox i pozwala na edytowanie tej listy. 
 WPF6- program który ma za zadanie umożliwienie rozwiazania problemu wież Hanoi. Wszystko opiera sie o Commandy.
 WPF7- program który ma za zadanie dodawać, usuwać i edytkować ożytkowników z listy ListBox, wszystko działa na zasadzie bindowania danych.
-Co tydzien nowe zadanko
+WPF8- program który jest uzupełnieniem WPF7. Dodatkowo wyświetlanie zdjęć, sortowanie, grupowanie, filtrowanie, conwersja danych, szablony danych, walidacja danych.
+KONIEC ZADAŃ
